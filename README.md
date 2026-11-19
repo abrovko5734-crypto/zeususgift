@@ -65,3 +65,11 @@ See `PROGRESSION_SETUP.md` for details and the exact feature list. The new front
 ## Celestial Expansion (2026)
 
 See `MEGA_UPDATE_2026.md` for daily trials, cosmetic relic forge, settings, result feedback, and installation notes.
+
+## Admin Control Center update (November 2026)
+
+The admin panel now loads live Supabase totals (registered players, rounds, total virtual-point balance and inventory item count), recent round activity, and the current win factor. It includes Telegram-ID player lookup, player balance actions, ban/unban, per-player recent round history, and a global factor slider. The interface has animated panel entrance, live status pulse, refresh animation, metric cards and responsive controls.
+
+Admin API access is restricted server-side through verified Telegram `initData` and `TELEGRAM_ADMIN_ID`. The browser never receives the Supabase service-role key. Player balance changes still use the `admin_change_balance` SQL RPC from `supabase.sql`; the Telegram admin ID in that SQL function must match `TELEGRAM_ADMIN_ID`.
+
+To deploy this update, replace the project files with this archive and redeploy. No new SQL migration is required beyond the earlier `supabase.sql` and `progression.sql` migrations. The inventory metric is optional and displays zero if the progression inventory table has not been created yet.
