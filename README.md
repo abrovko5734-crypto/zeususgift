@@ -60,3 +60,8 @@ npm run dev
 This archive includes the new progression features. **Before deploying, run `progression.sql` in Supabase SQL Editor after your original `supabase.sql` migration.** It adds XP, levels, streaks, case inventory, unique reward claims and achievement unlocks, plus the server RPCs used by the new `/api/progression` endpoint.
 
 See `PROGRESSION_SETUP.md` for details and the exact feature list. The new frontend sections include Cases, Level/XP, daily streaks, Achievements, Season Pass, server-backed Inventory and persistent Round History.
+
+
+## Celestial Expansion (2026)
+
+See `MEGA_UPDATE_2026.md` for daily trials, cosmetic relic forge, settings, result feedback, and installation notes.

@@ -38,6 +38,18 @@ export default async function handler(req,res){
   if(error)return reply(res,500,{error:"Награды не настроены. Выполни progression.sql в Supabase."});
   if(!data?.ok)return reply(res,409,{error:"Эта награда уже забрана."});return reply(res,200,data);
  }
+ if(action==="daily_quest"){
+  const today=new Date().toISOString().slice(0,10);const start=`${today}T00:00:00.000Z`;
+  const [{data:rounds},{data:gamesToday}]=await Promise.all([
+   supabase.from("game_history").select("id,won,game,created_at").eq("telegram_id",auth.id).gte("created_at",start),
+   supabase.from("game_history").select("game").eq("telegram_id",auth.id).gte("created_at",start)
+  ]);
+  const rows=rounds||[];const keys={daily_play:{ok:rows.length>=1,reward:50},daily_win:{ok:rows.some(x=>x.won),reward:100},daily_variety:{ok:new Set((gamesToday||[]).map(x=>x.game)).size>=2,reward:150}};
+  if(!keys[key]?.ok)return reply(res,409,{error:"Испытание ещё не выполнено."});
+  const claimKey=`quest_${key}_${today.replaceAll("-","")}`;
+  const {data,error}=await supabase.rpc("claim_progress_reward",{p_telegram_id:auth.id,p_claim_key:claimKey,p_reward:keys[key].reward});
+  if(error)return reply(res,500,{error:"Не удалось получить награду."});if(!data?.ok)return reply(res,409,{error:"Награда за сегодня уже получена."});return reply(res,200,data);
+ }
  if(action==="streak"){
   const {data,error}=await supabase.rpc("claim_streak_reward",{p_telegram_id:auth.id});
   if(error)return reply(res,500,{error:"Серия входов не настроена. Выполни progression.sql в Supabase."});
