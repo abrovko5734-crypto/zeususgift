@@ -52,3 +52,11 @@ npm run dev
 - Админ-доступ проверяется сервером по проверенному Telegram `initData` и ID `7128871752`; username сам по себе не даёт доступ.
 - Коэффициент в админке меняет вероятность выигрыша в игровых режимах. Не используй проект как денежное казино.
 - Перед публичным запуском проверь требования Telegram, Vercel и Supabase, а также актуальные законы и возрастные ограничения для своей аудитории.
+
+---
+
+## Olympus progression expansion (November 2026)
+
+This archive includes the new progression features. **Before deploying, run `progression.sql` in Supabase SQL Editor after your original `supabase.sql` migration.** It adds XP, levels, streaks, case inventory, unique reward claims and achievement unlocks, plus the server RPCs used by the new `/api/progression` endpoint.
+
+See `PROGRESSION_SETUP.md` for details and the exact feature list. The new frontend sections include Cases, Level/XP, daily streaks, Achievements, Season Pass, server-backed Inventory and persistent Round History.

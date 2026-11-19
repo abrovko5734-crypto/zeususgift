@@ -36,5 +36,7 @@ export default async function handler(req,res) {
     p_won: won, p_detail: detail
   });
   if (error || !data?.ok) return reply(res,400,{error:"Не удалось завершить раунд. Проверь баланс и попробуй ещё раз."});
-  return reply(res,200,{won,delta,balance:data.balance,detail,multiplier:won?multiplier:0,probability});
+  let progression = null;
+  try { const pr = await supabase.rpc("award_game_progress", { p_telegram_id: auth.id, p_won: won }); if (!pr.error) progression = pr.data; } catch (_) {}
+  return reply(res,200,{won,delta,balance:data.balance,detail,multiplier:won?multiplier:0,probability,progression});
 }
