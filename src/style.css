@@ -12,3 +12,35 @@ header{display:flex;align-items:center;justify-content:space-between;margin-bott
 nav{position:fixed;z-index:5;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);padding:10px 7px calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;background:linear-gradient(180deg,rgba(14,65,105,.9),rgba(5,35,64,.98));backdrop-filter:blur(18px);border-top:1px solid #ffffff65;box-shadow:0 -8px 25px #17466b35}nav button{background:transparent;color:#b9d9ee;display:flex;align-items:center;flex-direction:column;gap:3px;font-size:9px;min-width:48px}nav svg{width:18px;height:18px}nav .active{color:#ffe08a;text-shadow:0 0 12px #ffcf62}footer{text-align:center;color:#e0f2fc;font-size:8px;margin:20px 0;text-shadow:0 1px 4px #17466b}footer a{color:#fff0b3;text-decoration:none}
 .loading{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:25px}.loading img{width:130px;height:130px;object-fit:contain;border-radius:50%;filter:drop-shadow(0 8px 16px #17466b55)}.loading h2{letter-spacing:3px;color:#fff;text-shadow:0 2px 7px #17466b}.loading p,.loading small{color:#e7f6ff;font-size:12px;text-shadow:0 1px 4px #17466b}.loading button{background:linear-gradient(180deg,#fff0a9,#ffc34d);color:#58370a;padding:11px 20px;border-radius:11px;font-weight:900;box-shadow:0 4px 0 #a9681e}
 @media(min-width:520px){.app{padding-top:22px}.hero{height:220px}}@media(max-width:360px){.app{padding-left:11px;padding-right:11px}.hero{height:190px}.hero h1{font-size:25px}.daily{gap:7px}.daily button{padding:10px 9px}.game-card{min-height:140px}}
+/* Olympus crash animation */
+.crash-scene{height:225px;margin:12px 0 4px;position:relative;overflow:hidden;border-radius:18px;border:1px solid #dff7ff8c;background:linear-gradient(180deg,#193f75 0%,#3e7ec0 42%,#a9e4ff 78%,#f4e6bd 100%);isolation:isolate;box-shadow:inset 0 0 35px #072c5960,0 8px 22px #072c5940}
+.crash-scene:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 12%,#fff9 0,transparent 22%),linear-gradient(180deg,transparent 55%,#fff2 100%);z-index:0}
+.scene-sun{position:absolute;width:72px;height:72px;border-radius:50%;right:32px;top:24px;background:#ffeab6;box-shadow:0 0 35px 15px #ffedb466}
+.scene-cloud{position:absolute;width:140px;height:42px;background:#eaf8ffcc;border-radius:50px;filter:blur(1px);box-shadow:24px -17px 0 3px #f7fcffcc,-28px -7px 0 4px #d9f2ffcc;animation:cloudDrift 9s linear infinite}
+.cloud-a{top:35px;left:-150px}.cloud-b{top:72px;left:55%;transform:scale(.7);animation-duration:13s;animation-delay:-4s}.cloud-c{top:16px;left:80%;transform:scale(.55);animation-duration:11s;animation-delay:-7s}
+.scene-horizon{position:absolute;left:-8%;right:-8%;bottom:62px;height:60px;background:linear-gradient(180deg,#b9ddf1,#88b6d5);clip-path:polygon(0 65%,18% 15%,30% 60%,44% 5%,61% 55%,78% 20%,100% 65%,100% 100%,0 100%);opacity:.7}
+.scene-runway{position:absolute;left:-10%;right:-10%;height:67px;bottom:0;background:linear-gradient(180deg,#dfd1b0,#a88a61);transform:perspective(150px) rotateX(13deg);transform-origin:bottom;box-shadow:0 -4px 12px #fff4}
+.scene-runway:before{content:"";position:absolute;left:0;right:0;top:20px;height:4px;background:repeating-linear-gradient(90deg,#fff9 0 35px,transparent 35px 66px);animation:groundMove .45s linear infinite}
+.crash-zeus{position:absolute;width:108px;height:108px;object-fit:contain;left:calc(50% - 54px);bottom:42px;z-index:2;filter:drop-shadow(0 8px 8px #153d6070);animation:zeusRun .36s ease-in-out infinite alternate}
+.phase-run .crash-zeus{animation:zeusRun .24s ease-in-out infinite alternate;left:24%;}
+.phase-escape .crash-zeus{animation:zeusEscape .8s ease-in forwards}
+.phase-strike .crash-zeus{animation:zeusHit .42s ease-in forwards;z-index:4}
+.phase-fall .crash-zeus{animation:zeusFall .55s ease-in forwards;z-index:4}
+.scene-caption{position:absolute;z-index:5;bottom:9px;left:0;right:0;text-align:center;font-size:10px;font-weight:900;letter-spacing:1.7px;color:#fff;text-shadow:0 2px 7px #103d68;animation:captionIn .25s ease-out}
+.crash-caption{color:#fff;text-shadow:0 0 9px #6ce9ff,0 2px 5px #143d70;font-size:13px}.win-caption{color:#fff0a8}
+.strike-bolt{position:absolute;z-index:3;left:calc(50% - 36px);top:-5px;width:85px;height:195px;fill:#e9fcff;stroke:#8ae5ff;stroke-width:4;filter:drop-shadow(0 0 8px #fff) drop-shadow(0 0 17px #6ad8ff);animation:boltFlash .22s steps(2) 4}
+.lightning-flash{position:absolute;inset:0;background:#eaffff;z-index:6;opacity:0;animation:screenFlash .9s ease-out}
+.impact-ring{position:absolute;z-index:3;width:125px;height:30px;border:4px solid #d9fbff;border-radius:50%;left:calc(50% - 62px);bottom:28px;box-shadow:0 0 22px #6eeaff;animation:impact .55s ease-out forwards}
+.phase-strike,.phase-fall{animation:sceneShake .18s linear 4}
+@keyframes cloudDrift{from{translate:-180px 0}to{translate:600px 0}}
+@keyframes groundMove{to{background-position:101px 0}}
+@keyframes zeusRun{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-7px) rotate(3deg)}}
+@keyframes zeusEscape{to{transform:translate(260px,-95px) scale(.6);opacity:0}}
+@keyframes zeusHit{0%{transform:translateY(0) scale(1)}35%{transform:translateY(-12px) scale(1.12);filter:brightness(2.4)}100%{transform:translateY(5px) scale(.98);filter:brightness(1.3)}}
+@keyframes zeusFall{to{transform:translate(65px,65px) rotate(95deg);opacity:.35}}
+@keyframes boltFlash{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes screenFlash{0%{opacity:0}12%{opacity:.95}40%{opacity:.3}100%{opacity:0}}
+@keyframes impact{0%{transform:scale(.2);opacity:1}100%{transform:scale(2.4);opacity:0}}
+@keyframes sceneShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
+@keyframes captionIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.game-art svg{width:35px;height:35px;stroke-width:1.8}.big-emoji svg{width:44px;height:44px;stroke-width:1.8}
